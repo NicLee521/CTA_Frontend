@@ -1,0 +1,42 @@
+/* components/YourLongFormComponent.module.css */
+
+.formContainer {
+    max-width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+  }
+  
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Add some space between form elements */
+  }
+  
+  .select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .button {
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background-color: #555;
+  }
+  
+  .p {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #333
+  }
+  

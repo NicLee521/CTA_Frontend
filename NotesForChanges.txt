@@ -1,0 +1,13 @@
+view stories:
+	Pages all the same length
+	Put art on the cover
+	desk texture for background
+Create a Stories:
+	Put submission model more in the middle
+	Selection model over top 
+	Add cancel and regen buttons for selection
+	moving collage of card art
+Home:
+	Big Create your own story call to action
+	Shared stories underneath
+	Adventurey color for background(blue to green gradient)

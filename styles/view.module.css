@@ -1,0 +1,74 @@
+.navigation {
+    position: absolute;
+    bottom: 0px; /* Adjust the bottom value as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    z-index: 2;
+}
+  
+.navigation button {
+    margin: 0 5px;
+    padding: 8px 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+  
+.navigation span {
+    margin: 0 5px;
+}
+  
+  /* Additional styles for the book content */
+.page {
+    background-color: #ffffff; /* Set a background color for the page */
+    border: 1px solid #ccc; /* Add a border */
+    border-radius: 5px; /* Round the corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px; /* Add some padding */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Styles for the page header */
+.pageHeader {
+    font-size: 24px;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 10px; /* Add some space below the header */
+}
+
+/* Styles for the page text */
+.pageText {
+    font-size: 18px;
+    color: #555;
+}
+
+.book {
+    position: relative;
+    flex-grow: 1;
+
+}
+
+.pageCover {
+    background-color: #f0f0f0; /* Set a background color */
+    border: 1px solid #ccc; /* Add a border */
+    border-radius: 5px; /* Round the corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px; /* Add some padding to center the content */
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    font-weight: bold;
+    min-height: 100vh;
+  }
