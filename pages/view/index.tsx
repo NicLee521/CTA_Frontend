@@ -13,7 +13,11 @@ export default function Create() {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        axios("http://localhost:8080/api/story", {
+        if(!userObject) {
+            setIsLoading(false);
+            return;
+        }
+        axios(process.env.API_URL+ '/api/story', {
             method: 'GET',
             withCredentials: true 
         }).then((res: AxiosResponse) => {
@@ -22,19 +26,21 @@ export default function Create() {
                 setIsLoading(false);
             }
         });
-    }, [])
+    }, [userObject])
 
     return (
         <Layout>
-        <main >
-            <div style={{ maxHeight: '92vh' }}>
+        <main>
+            <div>
             {isLoading ? (
                 <div>Loading...</div>
                 ) : stories.length > 0 ? (
                 <Book pages={stories} />
-                ) : (
-                <div>No stories found.</div>
-            )}
+                ) : (!userObject ? 
+                    <div>You are not logged in</div> :
+                    <div>No stories found.</div>
+                )
+            }
             </div>
         </main>
         </Layout>

@@ -5,7 +5,7 @@ const Layout = ({ children }) => {
   return (
     <>
       <Navbar />
-      <main style={{paddingTop:'55px'}}>{children}</main>
+      <main >{children}</main>
       {/* Add a footer or any other content that should appear on all pages */}
     </>
   );

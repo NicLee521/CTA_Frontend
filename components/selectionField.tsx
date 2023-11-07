@@ -19,17 +19,17 @@ export default function SelectionField(props: any) {
 
     return (
         <div className={styles.formContainer}>
-        <form className={styles.form} onSubmit={handleFormSubmit}>
-        <select className={styles.select} value={selectedOption} onChange={handleSelectionChange}>
-            {options.map((option: any) => (
-            <option key={option.value} value={option.value}>
-                {option.label}
-            </option>
-            ))}
-        </select>
-        <button className={styles.button} type="submit">Submit</button>
-        <p className={styles.p}>{selectedOption}</p>
-        </form>
+            <form className={styles.form} onSubmit={handleFormSubmit}>
+                <select className={styles.select} value={selectedOption} onChange={handleSelectionChange}>
+                    {options.map((option: any) => (
+                    <option key={option.value} value={option.value}>
+                        {option.label}
+                    </option>
+                    ))}
+                </select>
+                <button className={styles.button} type="submit">Submit</button>
+                <p className={styles.p}>{selectedOption}</p>
+            </form>
         </div>
     );
 }

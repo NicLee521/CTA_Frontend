@@ -1,74 +1,125 @@
 .navigation {
-    position: absolute;
-    bottom: 0px; /* Adjust the bottom value as needed */
+    position: fixed;
+    bottom: 10px; /* Spacing from the bottom */
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     align-items: center;
-    z-index: 2;
+    z-index: 10; /* Ensure it's above the book component */
+    background-color: rgba(43, 24, 11, 0.85); /* Match the theme */
+    padding: 8px 16px; /* Add some padding */
+    border-radius: 8px; /* Match the theme styles */
+    border: 1px solid gold; /* A little fantasy touch */
 }
-  
+
 .navigation button {
-    margin: 0 5px;
+    background-color: #8b4513; /* Rustic button color */
+    color: #f9e4b7; /* Font color consistent with the label */
+    border: none;
+    border-radius: 5px;
     padding: 8px 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
     cursor: pointer;
+    font-family: 'FantasyFont', serif; /* Consistency with the theme */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); /* Text shadow for depth */
+    transition: background-color 0.3s; /* Smooth transition effect for hover */
 }
-  
+
+.navigation button:hover {
+    background-color: #a0522d; /* Slightly lighter color on hover */
+    transform: scale(1.05); /* Slight enlargement to give a pop effect */
+    transition: transform 0.3s ease, background-color 0.3s ease; /* Smooth transition for the hover effect */
+}
+
 .navigation span {
-    margin: 0 5px;
+    color: #f9e4b7; /* Lighter color to match the glowing runes */
+    font-family: 'FantasyFont', serif; /* Consistency with the theme */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); /* Text shadow for depth */
 }
-  
-  /* Additional styles for the book content */
+
 .page {
-    background-color: #ffffff; /* Set a background color for the page */
-    border: 1px solid #ccc; /* Add a border */
-    border-radius: 5px; /* Round the corners */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px; /* Add some padding */
-    text-align: center;
+    width: 100vw; /* Full width of the viewport */
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    align-items: center; /* Center content horizontally */
+    font-family: 'FantasyFont', serif; /* Consistent font with the theme */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margins to ensure full coverage */
+    box-sizing: border-box; /* Ensures padding doesn't affect width/height */
+    justify-content: flex-start; /* Align content to the top */
+    overflow: visible; /* Let's set overflow to visible for debugging */
+
 }
 
-/* Styles for the page header */
-.pageHeader {
-    font-size: 24px;
-    color: #333;
-    font-weight: bold;
-    margin-bottom: 10px; /* Add some space below the header */
+/* Style for the page content */
+.page-content {
+    overflow-y: auto; /* Allows content to scroll if it overflows */
+    text-align: justify; /* Justify text for better readability */
+    box-shadow: none; /* No shadow, as each page will be fullscreen */
+    word-wrap: break-word; /* Prevents text from overflowing */
+    hyphens: auto; /* Automatically add hyphens where appropriate */
+    padding: 4vh 4vw; /* Adjust padding if necessary */
+    height: auto; /* Remove fixed height */
+    max-height: 88vh; /* Set a max-height that works with your navbar and pagination */
+    margin-bottom: 10vh; /* Space for pagination and buttons */
+    font-size: clamp(1.2rem, 2vw, 2rem); /* Adjust min, value, and max sizes to fit your design */
+
 }
 
-/* Styles for the page text */
-.pageText {
-    font-size: 18px;
-    color: #555;
+.page button {
+    z-index: 20; /* Make sure buttons are above other content */
+    position: relative; /* Establish a stacking context */
+    margin-top: 1rem; /* Add space above the button */
+    padding: 0.5rem 1rem; /* Adjust padding to fit the button content */
+    font-size: 1rem; /* Ensure readable font size */
+    background: #8b4513; /* Rustic button color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block; /* Ensure it's not inline */
+    width: auto; /* Adjust width as necessary, or use 'auto' for content width */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Optional: Adds a subtle shadow for depth */
+}
+
+@media (min-width: 768px) {
+    .page-content {
+        font-size: 2vw; /* Adjust font size based on width of the viewport */
+    }
+}
+
+@media (max-width: 767px) {
+    .page-content {
+        font-size: 3vw; /* Larger font size for smaller screens */
+    }
 }
 
 .book {
-    position: relative;
-    flex-grow: 1;
-
+    position: absolute;
+    max-height: 95vh;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align to the top */
+    overflow: hidden;
 }
 
-.pageCover {
-    background-color: #f0f0f0; /* Set a background color */
-    border: 1px solid #ccc; /* Add a border */
-    border-radius: 5px; /* Round the corners */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+.pageCover, .page {
+    width: 100vw; /* Viewport width */
+    max-width: none; /* Override any max-width set elsewhere */
+    margin: 0;
+    box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px; /* Add some padding to center the content */
-    text-align: center;
-    font-size: 24px;
-    color: #333;
-    font-weight: bold;
-    min-height: 100vh;
-  }
+    padding: 0; /* Reset padding */
+    border-radius: 0; /* Reset border radius for full-size */
+    background-color: #f9e4b7; /* A parchment-like color */
+    color: #5a2d0c; /* Dark text for contrast */
+    max-height: 88vh; /* Set a max-height that works with your navbar and pagination */
+}
+.pageCover {
+    background: url('/cover.png') no-repeat center center fixed;
+    background-size:auto;
+}

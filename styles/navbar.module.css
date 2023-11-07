@@ -4,14 +4,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #333;
   padding: 10px;
   color: #fff;
-  z-index: 2;
+  z-index: 1000;
+  background-color: rgba(20, 10, 5, 0.95); /* Slightly transparent dark brown */
+  border-bottom: 3px solid #8b4513; /* A subtle bottom border */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4); 
 }
 
 .navLinks a {
@@ -21,6 +23,8 @@
     border-bottom: 2px solid transparent;
     padding-bottom: 3px;
     transition: border-bottom 0.2s;
+    font-family: 'FantasyFont', serif; /* Fantasy font */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Text shadow for depth */
   }
   
 .navLinks a:hover {
@@ -31,6 +35,7 @@
   height: 30px;
   border-radius: 50%;
   margin-right: 8px;
+  border: 2px solid #8b4513;
 }
 
 .profileDropdown {
@@ -44,11 +49,26 @@
   position: absolute;
   top: 100%; /* Position dropdown below the profile */
   right: 0; /* Align dropdown to the right */
-  background-color: #f9f9f9;
   min-width: 160px;
   padding: 12px 16px;
   z-index: 1;
+  background-color: rgba(43, 24, 11, 0.95); /* Darker dropdown to match navbar */
+  border: 2px solid #8b4513; /* A border for the dropdown */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5); /* Shadow for dropdown depth */
 }
+
+.dropdownContent button, .profileDropdown > button {
+    background-color: #8b4513; /* A rustic button color */
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .dropdownContent button:hover, .profileDropdown > button:hover {
+    background-color: #a0522d; /* Slightly lighter color on hover */
+  }
 
 .profileDropdown:hover .dropdownContent {
   display: block;

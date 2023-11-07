@@ -8,7 +8,7 @@ export default function Context(props: any) {
     const [userObject, setUserObject] = useState<any>();
 
     useEffect(() => {
-        axios.get("http://localhost:8080/user", { withCredentials: true }).then((res: AxiosResponse) => {
+        axios.get(process.env.API_URL+ '/user', { withCredentials: true }).then((res: AxiosResponse) => {
             if (res.data) {
                 setUserObject(res.data);
             }
