@@ -4,7 +4,7 @@ import styles from '../styles/Home.module.css'
 import { myContext } from './context'
 import { useContext } from 'react';
 import Layout from './_layout';
-import { login } from './user';
+import { login } from '../lib/user';
 import { useRouter } from 'next/router';
 
 const inter = Inter({ subsets: ['latin'] })

@@ -1,7 +1,7 @@
 import {useContext} from 'react';
 import Link from 'next/link';
 import { myContext } from '../pages/context'
-import { login, logout } from '../pages/user';
+import { login, logout } from '../lib/user';
 import styles from '../styles/navbar.module.css'
 
 

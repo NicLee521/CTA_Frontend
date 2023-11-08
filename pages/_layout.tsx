@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from '../components/navbar';
-
+//@ts-ignore
 const Layout = ({ children }) => {
   return (
     <>
