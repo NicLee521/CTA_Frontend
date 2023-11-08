@@ -2,7 +2,8 @@ import { AxiosResponse } from 'axios';
 import api from '../lib/api'
 
 export async function login(){
-    window.location.href = process.env.API_URL + '/login/google'
+    let newUrl = (process.env.API_URL ? process.env.API_URL : 'https://cta-story-api.onrender.com') + '/login/google'
+    window.location.href = newUrl;
 }
 
 export async function logout(){
