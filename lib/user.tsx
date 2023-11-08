@@ -2,7 +2,7 @@ import axios from 'axios';
 import { AxiosResponse } from 'axios';
 
 export async function login(){
-    window.open(process.env.API_URL+ '/login/google', "_self")
+    window.location.href = process.env.API_URL + '/login/google'
 }
 
 export async function logout(){
