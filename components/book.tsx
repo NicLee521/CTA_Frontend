@@ -2,7 +2,8 @@
 import React, {useRef, useState, useEffect} from 'react';
 import HTMLFlipBook  from 'react-pageflip';
 import styles from '../styles/view.module.css'
-import axios, {AxiosResponse} from 'axios';
+import {AxiosResponse} from 'axios';
+import api from '../lib/api'
 
 interface IStory {
     _id: string;
@@ -60,7 +61,7 @@ export default function Book ({ pages }) {
     };
 
     const deleteStory = (story : IStory) => {
-        axios(process.env.API_URL+ '/api/story', {
+        api('/api/story', {
             method: 'DELETE',
             withCredentials: true,
             data: {

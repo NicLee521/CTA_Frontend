@@ -1,6 +1,6 @@
 import { myContext } from '../context'
 import { useContext, useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../../lib/api';
 import { AxiosResponse } from 'axios';
 import Book from '../../components/book'
 import Layout from '../_layout';
@@ -17,7 +17,7 @@ export default function Create() {
             setIsLoading(false);
             return;
         }
-        axios(process.env.API_URL+ '/api/story', {
+        api('/api/story', {
             method: 'GET',
             withCredentials: true 
         }).then((res: AxiosResponse) => {
