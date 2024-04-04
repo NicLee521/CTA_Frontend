@@ -1,6 +1,6 @@
 import { myContext } from '../context'
 import { useContext, useRef, useState } from 'react';
-import api from '../../lib/api';
+import axios from 'axios';
 import SelectionField from '../../components/selectionField';
 import Layout from '../_layout';
 import styles from '../../styles/create.module.css'
@@ -27,7 +27,7 @@ export default function Create() {
         //@ts-ignore
         formData.append('name', event.target.elements.namedItem('CharacterName')?.value);
         setLoading(true);
-        let res = await api.post('/api/story', formData, {
+        let res = await axios.post(process.env.NEXT_PUBLIC_API_URL + '/api/story', formData, {
             withCredentials: true,
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -42,7 +42,7 @@ export default function Create() {
     };
 
     const handleSubmitSelect = async (selectedOption: any) => {    
-        let res = await api('/api/story', {
+        let res = await axios(process.env.NEXT_PUBLIC_API_URL + '/api/story', {
             method: 'PATCH',
             withCredentials: true,
             data: {

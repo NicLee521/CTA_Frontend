@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import api from '../lib/api'
+import axios from 'axios'
 
 export async function login(){
     let newUrl = process.env.NEXT_PUBLIC_API_URL + '/login/google'
@@ -7,7 +7,7 @@ export async function login(){
 }
 
 export async function logout(){
-    api.get('/logout', {
+    axios.get( process.env.NEXT_PUBLIC_API_URL + '/logout', {
         withCredentials: true
     }).then((res: AxiosResponse) => {
         if (res.data === "done") {
