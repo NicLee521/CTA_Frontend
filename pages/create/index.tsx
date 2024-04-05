@@ -1,6 +1,5 @@
 import { myContext } from '../context'
 import { useContext, useRef, useState } from 'react';
-import axios from 'axios';
 import SelectionField from '../../components/selectionField';
 import Layout from '../_layout';
 import styles from '../../styles/create.module.css'
@@ -27,31 +26,48 @@ export default function Create() {
         //@ts-ignore
         formData.append('name', event.target.elements.namedItem('CharacterName')?.value);
         setLoading(true);
-        let res = await axios.post(process.env.NEXT_PUBLIC_API_URL + '/api/story', formData, {
-            withCredentials: true,
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
+        let data;
+        try {
+            const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/story', {
+                method: 'POST',
+                body: formData,
+                credentials: 'include',
+            });
+            data = await res.json();
+        } catch (err) {
+            console.error('Error in posting story request', err)
+            setLoading(false);
+            setSubmitted(false);
+            return;
+        }
+        
+        
+        let choices = data.choices.map((choice: { message: { content: string; }; }, index: number) => {
+            return {value: choice.message.content, label: `Story #${index + 1}`};
         });
-        let choices = res.data.choices.map((choice: { message: { content: string; }; }, index: number) => {
-            return {value: choice.message.content, label: `Story #${index+1}`}
-        })
         setLoading(false);
         setChoices(choices);
-        setStoryId(res.data.storyId);
+        setStoryId(data.storyId);
     };
 
-    const handleSubmitSelect = async (selectedOption: any) => {    
-        let res = await axios(process.env.NEXT_PUBLIC_API_URL + '/api/story', {
-            method: 'PATCH',
-            withCredentials: true,
-            data: {
-                choice: selectedOption,
-                story: storyId
-            }
-        })
-        setSubmitted(false);
-        
+    const handleSubmitSelect = async (selectedOption: any) => {
+        try {
+            const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/story', {
+                method: 'PATCH',
+                credentials: 'include', 
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    choice: selectedOption,
+                    story: storyId
+                }), 
+            });
+        } catch (error) {
+            console.error('Error submitting choice', error);
+        } finally {
+            setSubmitted(false); 
+        }
     };
 
     return (

@@ -2,7 +2,6 @@
 import React, {useRef, useState, useEffect} from 'react';
 import HTMLFlipBook  from 'react-pageflip';
 import styles from '../styles/view.module.css'
-import axios, {AxiosResponse} from 'axios';
 
 interface IStory {
     _id: string;
@@ -59,18 +58,26 @@ export default function Book ({ pages }) {
         setPage(e.data);
     };
 
-    const deleteStory = (story : IStory) => {
-        axios(process.env.NEXT_PUBLIC_API_URL + '/api/story', {
-            method: 'DELETE',
-            withCredentials: true,
-            data: {
-                story: story._id
-            }
-        }).then((res: AxiosResponse) => {
-            if(res.data) {
+    const deleteStory = async (story : IStory) => {
+        try {
+            const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/story', {
+                method: 'DELETE',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    story: story._id,
+                }),
+            });
+    
+            const data = await res.json();
+            if (data) {
                 setAllPages(allPages.filter(page => page._id !== story._id));
             }
-        });
+        } catch (error) {
+            console.error('Failed to delete story', error);
+        }
     }
 
     return (

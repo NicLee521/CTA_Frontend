@@ -1,6 +1,4 @@
 import React, { createContext, useEffect, useState } from 'react'
-import axios from 'axios';
-import { AxiosResponse } from 'axios';
 
 export const myContext = createContext({});
 export default function Context(props: any) {
@@ -8,12 +6,27 @@ export default function Context(props: any) {
     const [userObject, setUserObject] = useState<any>();
 
     useEffect(() => {
-        axios.get(process.env.NEXT_PUBLIC_API_URL + '/user', { withCredentials: true }).then((res: AxiosResponse) => {
-            if (res.data) {
-                setUserObject(res.data);
+        const fetchUserData = async () => {
+            try {
+                const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/user', {
+                    method: 'GET',
+                    credentials: 'include',
+                });
+                if(res.status === 401) {
+                    return;
+                }
+    
+                const data = await res.json();
+                if (data) {
+                    setUserObject(data);
+                }
+            } catch (e) {
+                console.error('Error fetching user data', e);
             }
-        }).catch(e => {})
-    }, [])
+        };
+    
+        fetchUserData();
+    }, []);
     return (
         <myContext.Provider value={userObject}>{props.children}</myContext.Provider>
     )

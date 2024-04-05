@@ -1,7 +1,5 @@
 import { myContext } from '../context'
 import { useContext, useEffect, useState } from 'react';
-import axios from 'axios';
-import { AxiosResponse } from 'axios';
 import Book from '../../components/book'
 import Layout from '../_layout';
 
@@ -13,20 +11,31 @@ export default function Create() {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        if(!userObject) {
+        if (!userObject) {
             setIsLoading(false);
             return;
         }
-        axios(process.env.NEXT_PUBLIC_API_URL + '/api/story', {
-            method: 'GET',
-            withCredentials: true 
-        }).then((res: AxiosResponse) => {
-            if(res.data) {
-                setStories(res.data)
+    
+        const fetchStories = async () => {
+            try {
+                const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/story', {
+                    method: 'GET',
+                    credentials: 'include',
+                });
+    
+                const data = await res.json(); 
+                if (data) {
+                    setStories(data);
+                }
+            } catch (error) {
+                console.error('Failed to fetch stories', error);
+            } finally {
                 setIsLoading(false);
             }
-        });
-    }, [userObject])
+        };
+    
+        fetchStories();
+    }, [userObject]);
 
     return (
         <Layout>
