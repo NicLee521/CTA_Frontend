@@ -8,7 +8,6 @@ export default function Context(props: any) {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                console.log(process.env.NEXT_PUBLIC_API_URL + '/user')
                 const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/user', {
                     method: 'GET',
                     credentials: 'include',
