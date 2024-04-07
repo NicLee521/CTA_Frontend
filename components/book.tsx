@@ -2,6 +2,7 @@
 import React, {useRef, useState, useEffect} from 'react';
 import HTMLFlipBook  from 'react-pageflip';
 import styles from '../styles/view.module.css'
+import { authenticatedFetch } from '../lib/user';
 
 interface IStory {
     _id: string;
@@ -60,7 +61,7 @@ export default function Book ({ pages }) {
 
     const deleteStory = async (story : IStory) => {
         try {
-            const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/story', {
+            const res = await authenticatedFetch('/api/story', {
                 method: 'DELETE',
                 credentials: 'include',
                 headers: {

@@ -12,10 +12,13 @@ interface IUser {
     profilePhoto?: string;
     lastVisited?: Date;
 }
+interface Context {
+    userObject: IUser
+}
 
 export default function Navbar () {
     
-    const user = useContext(myContext) as IUser;
+    const {userObject} = useContext(myContext) as Context;
 
     return (
         <nav className={styles.navbar}>
@@ -25,10 +28,10 @@ export default function Navbar () {
                 <Link href="/view">View Your Stories</Link>
             </div>
             <div className={styles.profileDropdown}>
-                {user ? (
+                {userObject ? (
                 <>
-                    <img className={styles.avatar} src={user.profilePhoto} alt="User Avatar" />
-                    <span className={styles.username}>{user.email}</span>
+                    <img className={styles.avatar} src={userObject.profilePhoto} alt="User Avatar" />
+                    <span className={styles.username}>{userObject.email}</span>
                     <div className={styles.dropdownContent}>
                     <button onClick={logout}>Logout</button>
                     </div>

@@ -3,9 +3,10 @@ import { useContext, useRef, useState } from 'react';
 import SelectionField from '../../components/selectionField';
 import Layout from '../_layout';
 import styles from '../../styles/create.module.css'
+import { authenticatedFetch } from '../../lib/user';
 
 export default function Create() {
-    const userObject = useContext(myContext) as any;
+    const {userObject} = useContext(myContext) as any;
     const fileInputRef = useRef<HTMLInputElement | null>(null);
     const [choices, setChoices] = useState([]);
     const [storyId, setStoryId] = useState('');
@@ -28,7 +29,7 @@ export default function Create() {
         setLoading(true);
         let data;
         try {
-            const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/story', {
+            const res = await authenticatedFetch('/api/story', {
                 method: 'POST',
                 body: formData,
                 credentials: 'include',
@@ -52,7 +53,7 @@ export default function Create() {
 
     const handleSubmitSelect = async (selectedOption: any) => {
         try {
-            const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/story', {
+            const res = await authenticatedFetch('/api/story', {
                 method: 'PATCH',
                 credentials: 'include', 
                 headers: {

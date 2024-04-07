@@ -2,11 +2,11 @@ import { myContext } from '../context'
 import { useContext, useEffect, useState } from 'react';
 import Book from '../../components/book'
 import Layout from '../_layout';
-
+import { authenticatedFetch } from '../../lib/user';
 
 
 export default function Create() {
-    const userObject = useContext(myContext) as any;
+    const {userObject} = useContext(myContext) as any;
     const [stories, setStories] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -18,7 +18,7 @@ export default function Create() {
     
         const fetchStories = async () => {
             try {
-                const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/story', {
+                const res = await authenticatedFetch('/api/story', {
                     method: 'GET',
                     credentials: 'include',
                 });

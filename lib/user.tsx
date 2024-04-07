@@ -5,16 +5,39 @@ export async function login(){
 
 export async function logout(){
     try {
-        const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/logout', {
+        const res = await authenticatedFetch('/logout', {
             method: 'GET',
             credentials: 'include',
         });
 
         const data = await res.text();
         if (data === "done") {
+            window.localStorage.removeItem('authToken');
             window.location.href = "/";
         }
     } catch (error) {
         console.error('Logout failed', error);
     }
 }
+
+export const getAuthToken = () => {
+    return window.localStorage.getItem('authToken');
+  };
+  
+  export const authenticatedFetch = (url: String, options: any) => {
+    if (!options){
+        options = {}
+    }
+    const token = getAuthToken();
+    let baseUrl = process.env.NEXT_PUBLIC_API_URL;
+    if (!baseUrl) {
+        throw new Error('Base url not set')
+    }
+    return fetch(baseUrl + url, {
+      ...options,
+      headers: {
+        ...options.headers,
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  };

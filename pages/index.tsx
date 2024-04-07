@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { Inter } from '@next/font/google'
 import styles from '../styles/Home.module.css'
 import { myContext } from './context'
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import Layout from './_layout';
 import { login } from '../lib/user';
 import { useRouter } from 'next/router';
@@ -18,7 +18,16 @@ export default function Home() {
       ];
     const extendedCardImages = [...Array(10)].flatMap(() => cardImages);
     const router = useRouter();
-    const userObject = useContext(myContext);
+    const {userObject, refetchUserData} = useContext(myContext) as any;
+    useEffect(() => {
+        const { token } = router.query;
+        const checkedToken = Array.isArray(token) ? token[0] : token;
+
+        if (checkedToken) {
+            window.localStorage.setItem('authToken', checkedToken);
+            refetchUserData();
+        }
+    }, [router]);
     return (
         <Layout>
         <Head>
