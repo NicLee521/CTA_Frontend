@@ -23,7 +23,7 @@ export default function Context(props: any) {
                 setUserObject(data);
             }
             } catch (e) {
-            console.error('Error fetching user data', e);
+                console.error('Error fetching user data', e);
             }
         }, []);
     
