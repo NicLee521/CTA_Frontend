@@ -8,7 +8,7 @@ import { useAuth } from '../../components/context';
 export default function Create() {
     const auth = useAuth();
     const fileInputRef = useRef<HTMLInputElement | null>(null);
-    const [choices, setChoices] = useState([]);
+    const [choices, setChoices] = useState<{ value: any; label: string }[]>([]);
     const [storyId, setStoryId] = useState('');
     const [loading, setLoading] = useState(false)
     const [submitted, setSubmitted] = useState(false)
@@ -44,11 +44,7 @@ export default function Create() {
             setSubmitted(false);
             return;
         }
-        
-        
-        let choices = data.choices.map((choice: { message: { content: string; }; }, index: number) => {
-            return {value: choice.message.content, label: `Story #${index + 1}`};
-        });
+        let choices = [{value: data.choices, label: `Story #1`}]
         setLoading(false);
         setChoices(choices);
         setStoryId(data.storyId);

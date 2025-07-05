@@ -99,7 +99,7 @@ export default function Book ({ pages }) {
             {allPages.map((story, index) => (
             <Page key={index} number={index+1} className={styles.page} >
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <h2>{story.jsonStory.name}</h2>
+                    <h2>{story.jsonStory.early.name}</h2>
                     <button onClick={() => deleteStory(story)}>Delete</button>
                 </div>
                 <p>{story.generatedStory}</p>
