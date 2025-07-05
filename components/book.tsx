@@ -3,6 +3,7 @@ import React, {useRef, useState, useEffect} from 'react';
 import HTMLFlipBook  from 'react-pageflip';
 import styles from '../styles/view.module.css'
 import { authenticatedFetch } from '../lib/user';
+const { useAuth } = require('../pages/context');
 
 interface IStory {
     _id: string;
@@ -37,6 +38,7 @@ const PageCover = React.forwardRef((props, ref) => {
 PageCover.displayName = 'PageCover'
 
 export default function Book ({ pages }) {
+    const auth = useAuth();
     const flipBookRef = useRef(null);
     const [page, setPage] = useState(0);
     const [allPages, setAllPages] = useState(pages);
@@ -65,6 +67,7 @@ export default function Book ({ pages }) {
                 method: 'DELETE',
                 credentials: 'include',
                 headers: {
+                    Authorization: `Bearer ${await auth.getToken()}`,
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({

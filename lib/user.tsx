@@ -1,3 +1,4 @@
+
 export async function login(){
     let newUrl = process.env.NEXT_PUBLIC_API_URL + '/login/google'
     window.location.href = newUrl;
@@ -22,22 +23,18 @@ export async function logout(){
 
 export const getAuthToken = () => {
     return window.localStorage.getItem('authToken');
-  };
+};
   
-  export const authenticatedFetch = (url: String, options: any) => {
-    if (!options){
-        options = {}
-    }
-    const token = getAuthToken();
+export const authenticatedFetch = (url: String, options: any) => {
+    options ??= {};
     let baseUrl = process.env.NEXT_PUBLIC_API_URL;
     if (!baseUrl) {
         throw new Error('Base url not set')
     }
     return fetch(baseUrl + url, {
-      ...options,
-      headers: {
-        ...options.headers,
-        Authorization: `Bearer ${token}`,
-      },
+        ...options,
+        headers: {
+            ...options.headers,
+        },
     });
-  };
+};

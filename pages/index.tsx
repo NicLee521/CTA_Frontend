@@ -1,16 +1,14 @@
 import Head from 'next/head'
 import { Inter } from '@next/font/google'
 import styles from '../styles/Home.module.css'
-import { myContext } from './context'
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import Layout from './_layout';
-import { login } from '../lib/user';
 import { useRouter } from 'next/router';
-
-const inter = Inter({ subsets: ['latin'] })
+import { useAuth } from './context'; 
 
 
 export default function Home() {
+    const auth = useAuth();
     const cardImages = [
         '/CTA-cards/honor.png',
         '/CTA-cards/one.png',
@@ -18,16 +16,15 @@ export default function Home() {
       ];
     const extendedCardImages = [...Array(10)].flatMap(() => cardImages);
     const router = useRouter();
-    const {userObject, refetchUserData} = useContext(myContext) as any;
-    useEffect(() => {
-        const { token } = router.query;
-        const checkedToken = Array.isArray(token) ? token[0] : token;
+    // useEffect(() => {
+    //     const { token } = router.query;
+    //     const checkedToken = Array.isArray(token) ? token[0] : token;
 
-        if (checkedToken) {
-            window.localStorage.setItem('authToken', checkedToken);
-            refetchUserData();
-        }
-    }, [router]);
+    //     if (checkedToken) {
+    //         window.localStorage.setItem('authToken', checkedToken);
+    //         refetchUserData();
+    //     }
+    // }, [router]);
     return (
         <Layout>
         <Head>
@@ -64,9 +61,9 @@ export default function Home() {
                     <h1>Welcome to Call to Adventure Character Story generator!</h1>
                     <p>Generate epic stories based on your character board!</p>
                 </header>
-                {!userObject ? 
+                {!auth.loggedIn ? 
                     <main className={styles.main}>
-                        <button className={styles.createStoryBtn} onClick={login}>Log in</button>
+                        <button className={styles.createStoryBtn} onClick={auth.login}>Log in</button>
                     </main> :
                     <main className={styles.main}>
                         <button className={styles.createStoryBtn} onClick={() => router.push('/create')}>Create Your Story</button>

@@ -1,12 +1,13 @@
-import { myContext } from '../context'
-import { useContext, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import SelectionField from '../../components/selectionField';
 import Layout from '../_layout';
 import styles from '../../styles/create.module.css'
 import { authenticatedFetch } from '../../lib/user';
+import { useAuth } from '../context'; // Import useAuth hook
+import { headers } from 'next/dist/client/components/headers.js';
 
 export default function Create() {
-    const {userObject} = useContext(myContext) as any;
+    const auth = useAuth();
     const fileInputRef = useRef<HTMLInputElement | null>(null);
     const [choices, setChoices] = useState([]);
     const [storyId, setStoryId] = useState('');
@@ -16,7 +17,7 @@ export default function Create() {
 
     const handleSubmitForm = async (event: React.FormEvent) => {
         event.preventDefault();
-        if(!userObject) {
+        if(!auth.loggedIn) {
             window.alert('You are not logged in');
             return;
         }
@@ -32,6 +33,9 @@ export default function Create() {
             const res = await authenticatedFetch('/api/story', {
                 method: 'POST',
                 body: formData,
+                headers: {
+                    Authorization: `Bearer ${await auth.getToken()}`,
+                },
                 credentials: 'include',
             });
             data = await res.json();
@@ -58,6 +62,7 @@ export default function Create() {
                 credentials: 'include', 
                 headers: {
                     'Content-Type': 'application/json',
+                    Authorization: `Bearer ${await auth.getToken()}`,
                 },
                 body: JSON.stringify({
                     choice: selectedOption,

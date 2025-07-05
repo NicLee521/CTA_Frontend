@@ -1,9 +1,6 @@
-import {useContext} from 'react';
 import Link from 'next/link';
-import { myContext } from '../pages/context'
-import { login, logout } from '../lib/user';
 import styles from '../styles/navbar.module.css'
-
+import { useAuth } from '../pages/context'; // Import useAuth hook
 
 interface IUser {
     gId: string
@@ -17,8 +14,7 @@ interface Context {
 }
 
 export default function Navbar () {
-    
-    const {userObject} = useContext(myContext) as Context;
+    const auth = useAuth();
 
     return (
         <nav className={styles.navbar}>
@@ -28,16 +24,15 @@ export default function Navbar () {
                 <Link href="/view">View Your Stories</Link>
             </div>
             <div className={styles.profileDropdown}>
-                {userObject ? (
+                {auth.loggedIn ? (
                 <>
-                    <img className={styles.avatar} src={userObject.profilePhoto} alt="User Avatar" />
-                    <span className={styles.username}>{userObject.email}</span>
+                    <span className={styles.username}>{auth.user?.email}</span>
                     <div className={styles.dropdownContent}>
-                    <button onClick={logout}>Logout</button>
+                    <button onClick={auth.logout}>Logout</button>
                     </div>
                 </>
                 ) : (
-                <button onClick={login}>Login</button>
+                <button onClick={auth.login}>Login</button>
                 )}
             </div>
         </nav>

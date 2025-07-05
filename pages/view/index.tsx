@@ -1,17 +1,16 @@
-import { myContext } from '../context'
-import { useContext, useEffect, useState } from 'react';
+import {useEffect, useState } from 'react';
 import Book from '../../components/book'
 import Layout from '../_layout';
 import { authenticatedFetch } from '../../lib/user';
-
+const { useAuth } = require('../context'); // Import useAuth hook
 
 export default function Create() {
-    const {userObject} = useContext(myContext) as any;
+    const auth = useAuth();
     const [stories, setStories] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        if (!userObject) {
+        if (!auth.loggedIn) {
             setIsLoading(false);
             return;
         }
@@ -20,6 +19,9 @@ export default function Create() {
             try {
                 const res = await authenticatedFetch('/api/story', {
                     method: 'GET',
+                    headers: {
+                        Authorization: `Bearer ${await auth.getToken()}`,
+                    },
                     credentials: 'include',
                 });
     
@@ -35,7 +37,7 @@ export default function Create() {
         };
     
         fetchStories();
-    }, [userObject]);
+    }, [auth.loggedIn]);
 
     return (
         <Layout>
@@ -45,7 +47,7 @@ export default function Create() {
                 <div>Loading...</div>
                 ) : stories.length > 0 ? (
                 <Book pages={stories} />
-                ) : (!userObject ? 
+                ) : (!auth.loggedIn ? 
                     <div>You are not logged in</div> :
                     <div>No stories found.</div>
                 )
