@@ -1,8 +1,8 @@
 import {useEffect, useState } from 'react';
 import Book from '../../components/book'
-import Layout from '../_layout';
+import Layout from '../_layout'; 
 import { authenticatedFetch } from '../../lib/user';
-const { useAuth } = require('../context'); // Import useAuth hook
+import { useAuth } from '../context'; 
 
 export default function Create() {
     const auth = useAuth();

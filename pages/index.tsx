@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import { Inter } from '@next/font/google'
 import styles from '../styles/Home.module.css'
-import { useEffect } from 'react';
 import Layout from './_layout';
 import { useRouter } from 'next/router';
 import { useAuth } from './context'; 
@@ -16,15 +15,6 @@ export default function Home() {
       ];
     const extendedCardImages = [...Array(10)].flatMap(() => cardImages);
     const router = useRouter();
-    // useEffect(() => {
-    //     const { token } = router.query;
-    //     const checkedToken = Array.isArray(token) ? token[0] : token;
-
-    //     if (checkedToken) {
-    //         window.localStorage.setItem('authToken', checkedToken);
-    //         refetchUserData();
-    //     }
-    // }, [router]);
     return (
         <Layout>
         <Head>
