@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import styles from '../styles/navbar.module.css'
-import { useAuth } from '../pages/context'; 
+import { useAuth } from './context'; 
 
 interface IUser {
     gId: string

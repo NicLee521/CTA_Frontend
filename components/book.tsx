@@ -3,7 +3,7 @@ import React, {useRef, useState, useEffect} from 'react';
 import HTMLFlipBook  from 'react-pageflip';
 import styles from '../styles/view.module.css'
 import { authenticatedFetch } from '../lib/user';
-import { useAuth } from '../pages/context'; 
+import { useAuth } from './context'; 
 
 interface IStory {
     _id: string;

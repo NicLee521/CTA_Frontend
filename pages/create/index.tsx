@@ -3,7 +3,7 @@ import SelectionField from '../../components/selectionField';
 import Layout from '../_layout';
 import styles from '../../styles/create.module.css'
 import { authenticatedFetch } from '../../lib/user';
-import { useAuth } from '../context'; 
+import { useAuth } from '../../components/context'; 
 
 export default function Create() {
     const auth = useAuth();
